@@ -1,4 +1,4 @@
-import * as THREE from '../build/three.module';
+import * as THREE from '../build/three.module.js';
 
 class App{
     constructor(){
@@ -41,7 +41,7 @@ class App{
             0.1,
             100
         );
-        camera.getWorldPosition.z = 2;
+        camera.position.z = 2;
         this._camera = camera;
         //또다른 메소드에서 사용할수 있도록 정의
     }
@@ -57,11 +57,11 @@ class App{
         this._scene.add(light);
     }
 
-    //파란색 계열 3d mesh 생성
+    //초록색 계열 3d mesh 생성
     //BoxGeometry(가로, 세로, 깊이)
     _setupModel(){
         const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshPhongMaterial({color: 0x44a88});
+        const material = new THREE.MeshPhongMaterial({color: 0x44a888});
 
         const cube = new THREE.Mesh(geometry, material);
 
@@ -69,6 +69,33 @@ class App{
         this._scene.add(cube);
         //다른 메소드에서 참조 될수 있도록 필드화
         this._cube = cube;
+    }
+
+    resize(){
+        const width = this._divContainer.clientWidth;
+        const height = this._divContainer.clientHeight;
+
+        this._camera.aspect = width / height;
+        this._camera.updateProjectionMatrix();
+
+        this._renderer.setSize(width, height);
+    }
+
+    //랜더링이 시작된 이후 경과된 시간 값 단위 milli-second
+    render(time){
+        //renderer가 scene을 카메라의 시점으로 렌더링하라는 코드
+        this._renderer.render(this._scene, this._camera);
+        //속성값을 변경 애니메이션 효과를 발생
+        this.update(time);
+        //render 메소드를 빠르게 requestAnimationFrame api에 넘겨 호출
+        requestAnimationFrame(this.render.bind(this));
+    }
+
+    update(time){
+        time *= 0.001; //time에 0.001곱해서 milli-second단위를 second단위로 변환
+        //바꿔준 시간 값을 xy 축으로 cube 계속 회전
+        this._cube.rotation.x = time;
+        this._cube.rotation.y = time;
     }
 }
 
