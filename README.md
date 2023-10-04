@@ -9,3 +9,5 @@
 - Camera : 렌더링 되는 시점
 
 _ : App 클래스 내부에서만 사용되는 private field, method / App 클래스 외부 호출 불가
+
+- BufferGeometry : 정점, 정점 인덱스, 수직 벡터, 정점 색상, 사용자 정의 데이터 -> GPU
