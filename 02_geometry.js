@@ -31,9 +31,9 @@ class App {
     new OrbitControls(this._camera, this._divContainer);
   }
 
-  //SphereGeometry 구
+  //RingGeometry 2차원 형태의 반지모양 / PlaneGeometry 평면 사각형 / TorusGeometry 도넛
   _setupModel() {
-    const geometry = new THREE.SphereGeometry(0.9, 32, 12, 0, Math.PI, 0, Math.PI/2);
+    const geometry = new THREE.TorusGeometry(0.9, 0.4, 24, 32, Math.PI);
     const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
     const cube = new THREE.Mesh(geometry, fillMaterial);
 
