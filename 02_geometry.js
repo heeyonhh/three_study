@@ -31,6 +31,7 @@ class App {
     new OrbitControls(this._camera, this._divContainer);
   }
 
+  //BoxGeometry 가로 세로 깊이 (지정하지 않으면 기본값이 1)
   _setupModel() {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
@@ -43,7 +44,7 @@ class App {
     );
 
     const group = new THREE.Group();
-    //group.add(cube);
+    group.add(cube);
     group.add(line);
 
     this._scene.add(group);
