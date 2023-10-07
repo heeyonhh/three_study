@@ -31,40 +31,9 @@ class App {
     new OrbitControls(this._camera, this._divContainer);
   }
 
-  _setupModel() {
-    const shape = new THREE.Shape();
-
-    const x = -2.5, y = -5;
-    shape.moveTo(x + 2.5, y + 2.5);
-    shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
-    shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5);
-    shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5);
-    shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5);
-    shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
-    shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
-
-    const geometry = new THREE.ShapeGeometry(shape);
-
-    const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
-    const cube = new THREE.Mesh(geometry, fillMaterial);
-
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
-    const line = new THREE.LineSegments(
-      new THREE.WireframeGeometry(geometry),
-      lineMaterial
-    );
-
-    const group = new THREE.Group();
-    group.add(cube);
-    group.add(line);
-
-    this._scene.add(group);
-    this._cube = group;
-  }
-
-  //shape 
-  // _setupModel(){
+  // _setupModel() {
   //   const shape = new THREE.Shape();
+
   //   const x = -2.5, y = -5;
   //   shape.moveTo(x + 2.5, y + 2.5);
   //   shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
@@ -74,15 +43,51 @@ class App {
   //   shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
   //   shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
 
-  //   const geometry = new THREE.BufferGeometry();
-  //   const points = shape.getPoints();
-  //   geometry.setFromPoints(points);
+  //   const geometry = new THREE.ShapeGeometry(shape);
 
-  //   const material = new THREE.LineBasicMaterial({color: 0xffff00});
-  //   const line = new THREE.Line(geometry, material);
+  //   const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
+  //   const cube = new THREE.Mesh(geometry, fillMaterial);
 
-  //   this._scene.add(line);
+  //   const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
+  //   const line = new THREE.LineSegments(
+  //     new THREE.WireframeGeometry(geometry),
+  //     lineMaterial
+  //   );
+
+  //   const group = new THREE.Group();
+  //   group.add(cube);
+  //   group.add(line);
+
+  //   this._scene.add(group);
+  //   this._cube = group;
   // }
+
+  _setupModel(){
+    class CustomSincurve extends THREE.Curve {
+      constructor(scale) {
+        super();
+        this.scale = scale;
+      }
+      getPoint(t){
+        const tx = t * 3 - 1.5;
+        const ty = Math.sin(2 * Math.PI * t);
+        const tz = 0;
+        return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+      }
+    }
+
+    const path = new CustomSincurve(4);
+
+    //getPoints 기본값 5
+    const geometry = new THREE.BufferGeometry();
+    const points = path.getPoints(30);
+    geometry.setFromPoints(points);
+
+    const material = new THREE.LineBasicMaterial({color: 0xffff00});
+    const line = new THREE.Line(geometry, material);
+
+    this._scene.add(line);
+  }
 
   _setupCamera() {
     const camera = new THREE.PerspectiveCamera(
