@@ -48,9 +48,7 @@
       
       각 방향으로 모두 2등분한 육면체가 생성된다.
 
-- CircleGeometry
-
-2D 원 모양의 Geometry
+- CircleGeometry : 2D 원 모양의 Geometry
 
       CircleGeometry(radius : Float, segments : Integer, thetaStart : Float, thetaLength : Float)
       
