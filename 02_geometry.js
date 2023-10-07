@@ -31,9 +31,9 @@ class App {
     new OrbitControls(this._camera, this._divContainer);
   }
 
-  //CylinderGeometry 
+  //SphereGeometry 구
   _setupModel() {
-    const geometry = new THREE.CylinderGeometry(0.9, 0.9, 1.6, 32, 12, true, 0, Math.PI);
+    const geometry = new THREE.SphereGeometry(0.9, 32, 12, 0, Math.PI, 0, Math.PI/2);
     const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
     const cube = new THREE.Mesh(geometry, fillMaterial);
 
