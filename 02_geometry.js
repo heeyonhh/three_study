@@ -31,24 +31,42 @@ class App {
     new OrbitControls(this._camera, this._divContainer);
   }
 
-  //RingGeometry 2차원 형태의 반지모양 / PlaneGeometry 평면 사각형 / TorusGeometry 도넛
-  _setupModel() {
-    const geometry = new THREE.TorusGeometry(0.9, 0.4, 24, 32, Math.PI);
-    const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
-    const cube = new THREE.Mesh(geometry, fillMaterial);
+  // _setupModel() {
+  //   const geometry = new THREE.TorusGeometry(0.9, 0.4, 24, 32, Math.PI);
+  //   const fillMaterial = new THREE.MeshPhongMaterial({ color: 0x515151 });
+  //   const cube = new THREE.Mesh(geometry, fillMaterial);
 
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
-    const line = new THREE.LineSegments(
-      new THREE.WireframeGeometry(geometry),
-      lineMaterial
-    );
+  //   const lineMaterial = new THREE.LineBasicMaterial({ color: 0xffff00 });
+  //   const line = new THREE.LineSegments(
+  //     new THREE.WireframeGeometry(geometry),
+  //     lineMaterial
+  //   );
 
-    const group = new THREE.Group();
-    group.add(cube);
-    group.add(line);
+  //   const group = new THREE.Group();
+  //   group.add(cube);
+  //   group.add(line);
 
-    this._scene.add(group);
-    this._cube = group;
+  //   this._scene.add(group);
+  //   this._cube = group;
+  // }
+
+  //shape 사각형을 xy 로 그림 closePath로 닫음
+  _setupModel(){
+    const shape = new THREE.Shape();
+    shape.moveTo(1, 1);
+    shape.lineTo(1, -1);
+    shape.lineTo(-1, -1);
+    shape.lineTo(-1, 1);
+    shape.closePath();
+
+    const geometry = new THREE.BufferGeometry();
+    const points = shape.getPoints();
+    geometry.setFromPoints(points);
+
+    const material = new THREE.LineBasicMaterial({color: 0xffff00});
+    const line = new THREE.Line(geometry, material);
+
+    this._scene.add(line);
   }
 
   _setupCamera() {
