@@ -50,14 +50,17 @@ class App {
   //   this._cube = group;
   // }
 
-  //shape 사각형을 xy 로 그림 closePath로 닫음
+  //shape 하트 그리기
   _setupModel(){
     const shape = new THREE.Shape();
-    shape.moveTo(1, 1);
-    shape.lineTo(1, -1);
-    shape.lineTo(-1, -1);
-    shape.lineTo(-1, 1);
-    shape.closePath();
+    const x = -2.5, y = -5;
+    shape.moveTo(x + 2.5, y + 2.5);
+    shape.bezierCurveTo(x + 2.5, y + 2.5, x + 2, y, x, y);
+    shape.bezierCurveTo(x - 3, y, x - 3, y + 3.5, x - 3, y + 3.5);
+    shape.bezierCurveTo(x - 3, y + 5.5, x - 1.5, y + 7.7, x + 2.5, y + 9.5);
+    shape.bezierCurveTo(x + 6, y + 7.7, x + 8, y + 4.5, x + 8, y + 3.5);
+    shape.bezierCurveTo(x + 8, y + 3.5, x + 8, y, x + 5, y);
+    shape.bezierCurveTo(x + 3.5, y, x + 2.5, y + 2.5, x + 2.5, y + 2.5);
 
     const geometry = new THREE.BufferGeometry();
     const points = shape.getPoints();
