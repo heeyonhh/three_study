@@ -12,6 +12,8 @@
 
       ( _ : App 클래스 내부에서만 사용되는 private field, method App 클래스 외부 호출 불가)
 
+<img src="https://raw.githubusercontent.com/heeyonhh/img/main/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202023-10-07%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.19.45.png"/>
+
 - BufferGeometry
       
       Geometry 중 BufferGeometry는 다른 Geometry 클래스의 기반이 되는 클래스로, mesh, line 또는 point geometry를 적은 비용으로 GPU에 전달
